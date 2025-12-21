@@ -1,56 +1,7 @@
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
   background: #f4f6f8;
-  margin: 0;
-  padding: 0;
-}
-/* ===== 회원가입 / 로그인 박스 ===== */
-.auth-box {
-  width: 360px;
-  margin: 80px auto;
-  padding: 30px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.auth-box h2 {
-  margin-bottom: 20px;
-}
-
-.auth-box input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.auth-box button {
-  width: 100%;
-  padding: 12px;
-  background: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.auth-box button:hover {
-  background: #1e40af;
-}
-
-.auth-link {
-  margin-top: 15px;
-  font-size: 13px;
-}
-
-.auth-link a {
-  color: #2563eb;
-  text-decoration: none;
 }
 
 /* ===== 상단바 ===== */
@@ -80,94 +31,52 @@ body {
   color: #60a5fa;
 }
 
-.container {
-  max-width: 420px;
-  margin: 60px auto;
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+.nav-name {
+  margin-right: 15px;
 }
 
-h2, h3 {
-  text-align: center;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  background: #4f46e5;
-  color: white;
+.logout-btn {
+  padding: 6px 12px;
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
+  background: #ef4444;
+  color: white;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-button:hover {
-  background: #4338ca;
+/* ===== 로그인 / 회원가입 ===== */
+.auth-box {
+  width: 360px;
+  margin: 100px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+.auth-box h2 {
+  margin-bottom: 20px;
 }
 
-li {
-  padding: 8px;
-  border-bottom: 1px solid #eee;
+.auth-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from
-  "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "네꺼",
-  authDomain: "네꺼",
-  projectId: "네꺼",
-  appId: "네꺼"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const nav = document.getElementById("navRight");
-const isLogin = localStorage.getItem("login");
-const uid = localStorage.getItem("uid");
-
-if (isLogin && uid) {
-  // 로그인 상태
-  const snap = await getDoc(doc(db, "users", uid));
-  const name = snap.data().name;
-
-  nav.innerHTML = `
-    <span class="nav-name">${name}님</span>
-    <button class="logout-btn" id="logout">로그아웃</button>
-  `;
-
-  document.getElementById("logout").onclick = () => {
-    localStorage.clear();
-    location.href = "login.html";
-  };
-
-} else {
-  // 로그아웃 상태
-  nav.innerHTML = `
-    <a href="login.html">로그인</a>
-    <a href="signup.html">회원가입</a>
-  `;
+.auth-box button {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
-</script>
 
-
-
+.auth-box button:hover {
+  background: #1e40af;
+}
