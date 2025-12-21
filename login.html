@@ -1,43 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>로그인</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<!-- ===== 상단바 (항상 표시) ===== -->
-<div class="navbar">
-  <div class="logo">CHOICE CREW</div>
-  <div class="nav-right" id="navRight"></div>
-</div>
-
-<!-- ===== 로그인 박스 ===== -->
-<div class="auth-box">
-  <h2>로그인</h2>
-  <input id="email" placeholder="이메일">
-  <input id="pw" type="password" placeholder="비밀번호">
-  <button id="loginBtn">로그인</button>
-</div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDn_NwSI3bQw-qSf__CmXugu7gjRKrlAvc",
-  authDomain: "crew-point.firebaseapp.com",
-  projectId: "crew-point",
-  appId: "1:961636624576:web:f56d961665ed394e39a525"
+  apiKey: "네꺼",
+  authDomain: "네꺼",
+  projectId: "네꺼",
+  appId: "네꺼"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* ===== 로그인 처리 ===== */
 document.getElementById("loginBtn").onclick = async () => {
   const email = document.getElementById("email").value;
   const pw = document.getElementById("pw").value;
@@ -45,40 +21,9 @@ document.getElementById("loginBtn").onclick = async () => {
   try {
     const res = await signInWithEmailAndPassword(auth, email, pw);
     localStorage.setItem("uid", res.user.uid);
-    location.reload();
-  } catch (e) {
-    alert("로그인 실패: 이메일 또는 비밀번호 확인");
+    location.href = "index.html";
+  } catch {
+    alert("로그인 실패");
   }
 };
-
-/* ===== 상단바 상태 처리 ===== */
-const nav = document.getElementById("navRight");
-const uid = localStorage.getItem("uid");
-
-if (uid) {
-  try {
-    const snap = await getDoc(doc(db, "users", uid));
-    const name = snap.data().name;
-
-    nav.innerHTML = `
-      <span class="nav-name">${name}님</span>
-      <button class="logout-btn" id="logout">로그아웃</button>
-    `;
-
-    document.getElementById("logout").onclick = () => {
-      localStorage.clear();
-      location.reload();
-    };
-  } catch {
-    localStorage.clear();
-  }
-} else {
-  nav.innerHTML = `
-    <a href="login.html">로그인</a>
-    <a href="signup.html">회원가입</a>
-  `;
-}
 </script>
-
-</body>
-</html>
