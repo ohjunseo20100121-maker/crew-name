@@ -60,8 +60,28 @@
     <li>아직 데이터 없음</li>
   </ul>
   </div>
+  <script>
+const user = localStorage.getItem("userRole");
+
+if (!user) {
+  document.querySelectorAll(".guest-only").forEach(e => e.style.display = "inline-block");
+} else {
+  document.querySelectorAll(".user-only").forEach(e => e.style.display = "inline-block");
+}
+
+if (user === "admin" || user === "superadmin") {
+  document.querySelectorAll(".admin-only").forEach(e => e.style.display = "inline-block");
+}
+
+function logout() {
+  localStorage.removeItem("userRole");
+  location.href = "index.html";
+}
+</script>
+
 </body>
 </html>
+
 
 
 
