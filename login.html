@@ -35,8 +35,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+/* ===== 로그인 ===== */
 document.getElementById("loginBtn").onclick = async () => {
-  const email = email.value;
+  const email = document.getElementById("email").value;
   const pw = document.getElementById("pw").value;
 
   try {
@@ -44,10 +45,11 @@ document.getElementById("loginBtn").onclick = async () => {
     localStorage.setItem("uid", res.user.uid);
     location.reload();
   } catch (e) {
-    alert("로그인 실패");
+    alert("로그인 실패: 이메일 또는 비밀번호 확인");
   }
 };
 
+/* ===== 상단바 처리 ===== */
 const nav = document.getElementById("navRight");
 const uid = localStorage.getItem("uid");
 
@@ -74,4 +76,3 @@ if (uid) {
 
 </body>
 </html>
-
