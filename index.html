@@ -8,42 +8,32 @@
 <body>
 
 <div class="navbar">
-  <div class="nav-left">
-    <button class="menu-btn">☰</button>
-  </div>
-
-  <div class="nav-center">
-    CHOICE CREW
-  </div>
-
-  <div class="nav-right" id="navRight"></div>
-</div>
-
-    <a href="login.html">로그인</a>
-    <a href="signup.html">회원가입</a>
+  <button class="menu-btn" id="menuBtn">☰</button>
+  <div class="logo">CHOICE CREW</div>
+  <div class="nav-right">
+    <button class="logout-btn" id="logoutBtn">로그아웃</button>
   </div>
 </div>
 
 <div class="side-menu" id="sideMenu">
   <a href="index.html">🏠 홈</a>
-  <a href="ranking.html">🏆 포인트 순위</a>
-  <a href="admin.html">🛠 관리자</a>
+  <a href="rank.html">🏆 포인트 순위</a>
+  <a href="admin.html">⚙ 관리자</a>
 </div>
 
 <div class="home">
-  <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
-  <h1>안녕하세요 👋</h1>
-  <p>CHOICE 크루에 오신 것을 환영합니다</p>
+  <img src="https://illustrations.popsy.co/gray/work-from-home.svg">
+  <h2>CHOICE 크루에 오신 것을 환영합니다</h2>
 </div>
 
 <script>
-document.getElementById("menuBtn").onclick = () => {
-  document.getElementById("sideMenu").classList.toggle("open");
+menuBtn.onclick = () => sideMenu.classList.toggle("active");
+
+logoutBtn.onclick = () => {
+  localStorage.clear();
+  location.href = "login.html";
 };
 </script>
 
 </body>
 </html>
-
-
-
