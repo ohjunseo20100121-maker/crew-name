@@ -1,41 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>관리자</title>
 </head>
 <body>
-  <div class="container">
-<h2>관리자 페이지</h2>
-
-<input id="uid" placeholder="유저 UID"><br>
-<input id="p" placeholder="+100 / -50"><br>
-<input id="r" placeholder="사유"><br>
-<button id="btn">적용</button>
 
 <script type="module">
-import { auth, db } from "./js/firebase.js";
-import { onAuthStateChanged } from
-"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { doc, updateDoc, increment, serverTimestamp }
-from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-onAuthStateChanged(auth,u=>{
-  if(!u) location.href="login.html";
-});
-
-btn.onclick = async ()=>{
-  await updateDoc(doc(db,"users",uid.value),{
-    point: increment(Number(p.value)),
-    updatedAt: serverTimestamp()
-  });
-  alert("완료");
-};
-</script>
-  </div>
-  <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from
-  "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "네꺼",
@@ -47,35 +20,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const nav = document.getElementById("navRight");
-const isLogin = localStorage.getItem("login");
 const uid = localStorage.getItem("uid");
+if (!uid) location.href = "index.html";
 
-if (isLogin && uid) {
-  // 로그인 상태
-  const snap = await getDoc(doc(db, "users", uid));
-  const name = snap.data().name;
-
-  nav.innerHTML = `
-    <span class="nav-name">${name}님</span>
-    <button class="logout-btn" id="logout">로그아웃</button>
-  `;
-
-  document.getElementById("logout").onclick = () => {
-    localStorage.clear();
-    location.href = "login.html";
-  };
-
-} else {
-  // 로그아웃 상태
-  nav.innerHTML = `
-    <a href="login.html">로그인</a>
-    <a href="signup.html">회원가입</a>
-  `;
+const snap = await getDoc(doc(db, "users", uid));
+if (!snap.exists() || snap.data().role !== "admin") {
+  location.href = "index.html";
 }
 </script>
 
+<h2>관리자 페이지</h2>
+
 </body>
 </html>
-
-
