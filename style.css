@@ -63,3 +63,37 @@ body {
   cursor: pointer;
 }
 
+/* 로그인/회원가입 박스 */
+.auth-box {
+  width: 320px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  margin: 120px auto;
+  text-align: center;
+}
+
+.auth-box h2 {
+  margin-bottom: 20px;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 10px;
+  background: #2563eb;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.auth-box button:hover {
+  background: #1d4ed8;
+}
