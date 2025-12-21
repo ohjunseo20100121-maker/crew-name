@@ -3,17 +3,21 @@
 <head>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="container">
-<h2>회원가입</h2>
 
-<input id="email" placeholder="이메일"><br>
-<input id="pw" type="password" placeholder="비밀번호"><br>
-<input id="name" placeholder="닉네임"><br>
-<button id="btn">회원가입</button>
+<body>
+<div class="container">
+  <h2>회원가입</h2>
+
+  <input id="email" placeholder="이메일"><br>
+  <input id="pw" type="password" placeholder="비밀번호"><br>
+  <input id="name" placeholder="닉네임"><br>
+  <button id="btn">회원가입</button>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDn_NwSI3bQw-qSf__CmXugu7gjRKrlAvc",
@@ -25,9 +29,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-window.signup = function () {
+const btn = document.getElementById("btn");
+
+btn.onclick = () => {
   const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const password = document.getElementById("pw").value;
 
   createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
@@ -38,8 +44,5 @@ window.signup = function () {
 };
 </script>
 
-  </div>
 </body>
 </html>
-
-
