@@ -11,30 +11,35 @@
 <input id="pw" type="password" placeholder="비밀번호"><br>
 <input id="name" placeholder="닉네임"><br>
 <button id="btn">회원가입</button>
-
 <script type="module">
-import { auth, db } from "./js/firebase.js";
-import { createUserWithEmailAndPassword } from
-"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { doc, setDoc, serverTimestamp } from
-"https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-btn.onclick = async () => {
-  const res = await createUserWithEmailAndPassword(
-    auth, email.value, pw.value
-  );
+const firebaseConfig = {
+  apiKey: "AIzaSyDn_NwSI3bQw-qSf__CmXugu7gjRKrlAvc",
+  authDomain: "crew-point.firebaseapp.com",
+  projectId: "crew-point",
+  appId: "1:961636624576:web:f56d961665ed394e39a525"
+};
 
-  await setDoc(doc(db,"users",res.user.uid),{
-    name: name.value,
-    point: 0,
-    role: "user",
-    updatedAt: serverTimestamp()
-  });
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-  alert("회원가입 완료");
+window.signup = function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      alert("회원가입 성공");
+      location.href = "login.html";
+    })
+    .catch(err => alert(err.message));
 };
 </script>
+
   </div>
 </body>
 </html>
+
 
