@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+<h2>회원가입</h2>
+
+<input id="email" placeholder="이메일"><br>
+<input id="pw" type="password" placeholder="비밀번호"><br>
+<input id="name" placeholder="닉네임"><br>
+<button id="btn">회원가입</button>
+
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+import { createUserWithEmailAndPassword } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, setDoc, serverTimestamp } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+btn.onclick = async () => {
+  const res = await createUserWithEmailAndPassword(
+    auth, email.value, pw.value
+  );
+
+  await setDoc(doc(db,"users",res.user.uid),{
+    name: name.value,
+    point: 0,
+    role: "user",
+    updatedAt: serverTimestamp()
+  });
+
+  alert("회원가입 완료");
+};
+</script>
+  </div>
+</body>
+</html>
+

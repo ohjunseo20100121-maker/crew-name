@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+<h2>내 정보</h2>
+<p id="me"></p>
+
+<h3>전체 순위</h3>
+<ul id="rank"></ul>
+
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+import { onAuthStateChanged } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, getDoc, collection, getDocs, query, orderBy }
+from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+onAuthStateChanged(auth, async user=>{
+  const meSnap = await getDoc(doc(db,"users",user.uid));
+  const d = meSnap.data();
+  me.innerText = `${d.name} / ${d.point}점`;
+
+  const q = query(collection(db,"users"),orderBy("point","desc"));
+  const snap = await getDocs(q);
+  snap.forEach(s=>{
+    rank.innerHTML += `<li>${s.data().name} : ${s.data().point}</li>`;
+  });
+});
+</script>
+  </div>
+</body>
+</html>
+

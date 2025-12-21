@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+<h2>로그인</h2>
+
+<input id="email" placeholder="이메일"><br>
+<input id="pw" type="password"><br>
+<button id="btn">로그인</button>
+
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+import { signInWithEmailAndPassword } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, getDoc } from
+"https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+btn.onclick = async () => {
+  const res = await signInWithEmailAndPassword(
+    auth, email.value, pw.value
+  );
+
+  const snap = await getDoc(doc(db,"users",res.user.uid));
+  const role = snap.data().role;
+
+  if(role === "admin" || role === "super")
+    location.href = "admin.html";
+  else
+    location.href = "mypage.html";
+};
+</script>
+  </div>
+</body>
+</html>
