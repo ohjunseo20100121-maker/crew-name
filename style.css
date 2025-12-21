@@ -11,18 +11,20 @@ body {
   color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  position: relative;
   padding: 0 20px;
-}
-
-.logo {
-  font-size: 18px;
-  font-weight: bold;
 }
 
 .menu-btn {
   font-size: 22px;
   cursor: pointer;
+}
+
+.logo.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
 }
 
 .nav-right a {
@@ -73,10 +75,50 @@ body {
   margin-bottom: 20px;
 }
 
-.home h1 {
-  margin: 10px 0;
+/* 로그인/회원가입 */
+.auth-box {
+  width: 360px;
+  margin: 100px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
-.home p {
-  color: #555;
+.auth-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.auth-box button:hover {
+  background: #1e40af;
+}
+
+/* 랭킹 */
+.rank-box {
+  max-width: 500px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.rank-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
 }
