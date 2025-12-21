@@ -1,76 +1,98 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
   font-family: Arial, sans-serif;
+}
+
+body {
   background: #f4f6f8;
 }
 
-/* 상단바 */
+/* ===== 상단바 ===== */
 .navbar {
   height: 60px;
-  background: #1e293b;
+  background: #0f172a;
   color: white;
   display: flex;
   align-items: center;
-  position: relative;
+  justify-content: space-between;
   padding: 0 20px;
-}
-
-/* 왼쪽 */
-.nav-left {
-  width: 80px;
+  position: relative;
 }
 
 .menu-btn {
-  font-size: 24px;
+  font-size: 22px;
   background: none;
   border: none;
   color: white;
   cursor: pointer;
 }
 
-/* 중앙 */
-.nav-center {
+.logo {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 }
 
-/* 오른쪽 */
 .nav-right {
-  margin-left: auto;
   display: flex;
-  gap: 12px;
   align-items: center;
+  gap: 15px;
 }
 
-.nav-right a {
+.nav-right a,
+.logout-btn {
   color: white;
   text-decoration: none;
+  font-size: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .nav-right a:hover {
   color: #60a5fa;
 }
 
-.logout-btn {
-  background: #ef4444;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
+/* ===== 사이드 메뉴 ===== */
+.side-menu {
+  position: fixed;
+  top: 60px;
+  left: -260px;
+  width: 240px;
+  height: calc(100% - 60px);
+  background: #020617;
+  padding: 20px;
+  transition: left 0.3s ease;
 }
 
-/* 로그인/회원가입 박스 */
+.side-menu.active {
+  left: 0;
+}
+
+.side-menu a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.side-menu a:hover {
+  color: #60a5fa;
+}
+
+/* ===== 인증 박스 ===== */
 .auth-box {
-  width: 320px;
+  width: 360px;
+  margin: 80px auto;
   background: white;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  margin: 120px auto;
   text-align: center;
 }
 
@@ -80,20 +102,34 @@ body {
 
 .auth-box input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 .auth-box button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background: #2563eb;
-  border: none;
   color: white;
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
 }
 
 .auth-box button:hover {
-  background: #1d4ed8;
+  background: #1e40af;
+}
+
+/* ===== 홈 ===== */
+.home {
+  max-width: 800px;
+  margin: 80px auto;
+  text-align: center;
+}
+
+.home img {
+  width: 300px;
+  margin-bottom: 20px;
 }
