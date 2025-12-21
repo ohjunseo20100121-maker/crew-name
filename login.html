@@ -3,64 +3,48 @@
 <head>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="container">
-<h2>로그인</h2>
 
-<input id="email" placeholder="이메일"><br>
-<input id="pw" type="password"><br>
-<button id="btn">로그인</button>
+<body>
+<div class="container">
+  <h2>로그인</h2>
+
+  <input id="email" placeholder="이메일"><br>
+  <input id="pw" type="password" placeholder="비밀번호"><br>
+  <button id="btn">로그인</button>
+</div>
 
 <script type="module">
 import { auth, db } from "./js/firebase.js";
 import { signInWithEmailAndPassword } from
-"https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+  "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { doc, getDoc } from
-"https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+  "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+const btn = document.getElementById("btn");
+const email = document.getElementById("email");
+const pw = document.getElementById("pw");
 
 btn.onclick = async () => {
-  const res = await signInWithEmailAndPassword(
-    auth, email.value, pw.value
-  );
+  try {
+    const res = await signInWithEmailAndPassword(
+      auth,
+      email.value,
+      pw.value
+    );
 
-  const snap = await getDoc(doc(db,"users",res.user.uid));
-  const role = snap.data().role;
+    const snap = await getDoc(doc(db, "users", res.user.uid));
+    const role = snap.data().role;
 
-  if(role === "admin" || role === "super")
-    location.href = "admin.html";
-  else
-    location.href = "mypage.html";
-};
-</script>
-  </div>
-  <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    if (role === "admin" || role === "super")
+      location.href = "admin.html";
+    else
+      location.href = "mypage.html";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDn_NwSI3bQw-qSf__CmXugu7gjRKrlAvc",
-  authDomain: "crew-point.firebaseapp.com",
-  projectId: "crew-point",
-  appId: "1:961636624576:web:f56d961665ed394e39a525"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-window.login = function () {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      localStorage.setItem("userRole", "user");
-      location.href = "index.html";
-    })
-    .catch(err => alert("로그인 실패"));
+  } catch (err) {
+    alert(err.message);
+  }
 };
 </script>
 
 </body>
 </html>
-
-
