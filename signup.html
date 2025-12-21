@@ -8,52 +8,51 @@
 <body>
 
 <div class="navbar">
-  <div class="nav-left">
-    <button class="menu-btn">☰</button>
+  <button class="menu-btn" id="menuBtn">☰</button>
+  <div class="logo">CHOICE CREW</div>
+  <div class="nav-right">
+    <a href="login.html">로그인</a>
   </div>
-  <div class="nav-center">CHOICE CREW</div>
-  <div class="nav-right" id="navRight"></div>
+</div>
+
+<div class="side-menu" id="sideMenu">
+  <a href="index.html">🏠 홈</a>
 </div>
 
 <div class="auth-box">
   <h2>회원가입</h2>
-  <input id="name" placeholder="이름">
   <input id="email" placeholder="이메일">
   <input id="pw" type="password" placeholder="비밀번호">
-  <button id="btn">가입하기</button>
+  <input id="name" placeholder="닉네임">
+  <button id="signupBtn">회원가입</button>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "네 API KEY",
-  authDomain: "네 authDomain",
-  projectId: "네 projectId",
-  appId: "네 appId"
+  apiKey: "네꺼",
+  authDomain: "네꺼",
+  projectId: "네꺼",
+  appId: "네꺼"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-document.getElementById("btn").onclick = async () => {
+document.getElementById("signupBtn").onclick = async () => {
+  const email = email.value;
+  const pw = pw.value;
+  const name = name.value;
+
   try {
-    const email = document.getElementById("email").value;
-    const pw = document.getElementById("pw").value;
-    const name = document.getElementById("name").value;
-
     const res = await createUserWithEmailAndPassword(auth, email, pw);
-
     await setDoc(doc(db, "users", res.user.uid), {
-      name,
-      email,
-      role: "user",
-      createdAt: serverTimestamp()
+      email, name, role: "user"
     });
-
     alert("회원가입 성공");
     location.href = "login.html";
   } catch (e) {
@@ -61,11 +60,7 @@ document.getElementById("btn").onclick = async () => {
   }
 };
 
-const nav = document.getElementById("navRight");
-nav.innerHTML = `
-  <a href="login.html">로그인</a>
-  <a href="signup.html">회원가입</a>
-`;
+menuBtn.onclick = () => sideMenu.classList.toggle("active");
 </script>
 
 </body>
