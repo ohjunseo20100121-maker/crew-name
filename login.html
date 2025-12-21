@@ -45,6 +45,8 @@ btn.onclick = async () => {
     const role = snap.data().role;
 
     if (role === "admin" || role === "super")
+      localStorage.setItem("login", "true");
+localStorage.setItem("uid", res.user.uid);
       location.href = "admin.html";
     else
       location.href = "mypage.html";
@@ -57,4 +59,5 @@ btn.onclick = async () => {
 
 </body>
 </html>
+
 
