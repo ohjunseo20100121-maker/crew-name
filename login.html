@@ -7,16 +7,19 @@
 </head>
 <body>
 
-<!-- 상단바 -->
 <div class="navbar">
-  <div class="nav-left">
-    <button class="menu-btn">☰</button>
+  <button class="menu-btn" id="menuBtn">☰</button>
+  <div class="logo">CHOICE CREW</div>
+  <div class="nav-right">
+    <a href="signup.html">회원가입</a>
   </div>
-  <div class="nav-center">CHOICE CREW</div>
-  <div class="nav-right" id="navRight"></div>
 </div>
 
-<!-- 로그인 박스 -->
+<div class="side-menu" id="sideMenu">
+  <a href="index.html">🏠 홈</a>
+  <a href="rank.html">🏆 포인트 순위</a>
+</div>
+
 <div class="auth-box">
   <h2>로그인</h2>
   <input id="email" placeholder="이메일">
@@ -27,18 +30,16 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "네 API KEY",
-  authDomain: "네 authDomain",
-  projectId: "네 projectId",
-  appId: "네 appId"
+  apiKey: "네꺼",
+  authDomain: "네꺼",
+  projectId: "네꺼",
+  appId: "네꺼"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
 
 document.getElementById("loginBtn").onclick = async () => {
   const email = document.getElementById("email").value;
@@ -53,22 +54,9 @@ document.getElementById("loginBtn").onclick = async () => {
   }
 };
 
-const nav = document.getElementById("navRight");
-const uid = localStorage.getItem("uid");
-
-if (uid) {
-  const snap = await getDoc(doc(db, "users", uid));
-  nav.innerHTML = `<button class="logout-btn" id="logout">로그아웃</button>`;
-  document.getElementById("logout").onclick = () => {
-    localStorage.clear();
-    location.reload();
-  };
-} else {
-  nav.innerHTML = `
-    <a href="login.html">로그인</a>
-    <a href="signup.html">회원가입</a>
-  `;
-}
+document.getElementById("menuBtn").onclick = () => {
+  document.getElementById("sideMenu").classList.toggle("active");
+};
 </script>
 
 </body>
