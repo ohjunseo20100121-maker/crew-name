@@ -4,6 +4,32 @@ body {
   margin: 0;
   padding: 0;
 }
+/* ===== 상단바 ===== */
+.navbar {
+  height: 60px;
+  background: #111827;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-right a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.nav-right a:hover {
+  color: #60a5fa;
+}
 
 .container {
   max-width: 420px;
@@ -51,3 +77,4 @@ li {
   padding: 8px;
   border-bottom: 1px solid #eee;
 }
+
