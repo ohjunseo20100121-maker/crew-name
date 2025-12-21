@@ -1,13 +1,13 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background: #f4f6f8;
 }
 
 /* 상단바 */
 .navbar {
   height: 60px;
-  background: #111827;
+  background: #1e293b;
   color: white;
   display: flex;
   align-items: center;
@@ -15,110 +15,51 @@ body {
   padding: 0 20px;
 }
 
+/* 왼쪽 */
+.nav-left {
+  width: 80px;
+}
+
 .menu-btn {
-  font-size: 22px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
   cursor: pointer;
 }
 
-.logo.center {
+/* 중앙 */
+.nav-center {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  font-size: 20px;
   font-weight: bold;
 }
 
+/* 오른쪽 */
+.nav-right {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
 .nav-right a {
-  color: #e5e7eb;
-  margin-left: 15px;
+  color: white;
   text-decoration: none;
 }
 
 .nav-right a:hover {
-  color: #93c5fd;
-}
-
-/* 사이드 메뉴 */
-.side-menu {
-  position: fixed;
-  top: 60px;
-  left: -220px;
-  width: 200px;
-  height: 100%;
-  background: #1f2937;
-  padding: 20px;
-  transition: 0.3s;
-}
-
-.side-menu.open {
-  left: 0;
-}
-
-.side-menu a {
-  display: block;
-  color: white;
-  text-decoration: none;
-  margin-bottom: 15px;
-}
-
-.side-menu a:hover {
   color: #60a5fa;
 }
 
-/* 홈 */
-.home {
-  text-align: center;
-  margin-top: 80px;
-}
-
-.home img {
-  width: 140px;
-  margin-bottom: 20px;
-}
-
-/* 로그인/회원가입 */
-.auth-box {
-  width: 360px;
-  margin: 100px auto;
-  padding: 30px;
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.auth-box input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-
-.auth-box button {
-  width: 100%;
-  padding: 12px;
-  background: #2563eb;
-  color: white;
+.logout-btn {
+  background: #ef4444;
   border: none;
-  border-radius: 8px;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.auth-box button:hover {
-  background: #1e40af;
-}
-
-/* 랭킹 */
-.rank-box {
-  max-width: 500px;
-  margin: 40px auto;
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-}
-
-.rank-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-}
