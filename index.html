@@ -7,38 +7,30 @@
 </head>
 <body>
 
-<!-- 상단바 -->
 <div class="navbar">
-  <div class="logo">CHOICE CREW</div>
-
   <div class="menu-btn" id="menuBtn">☰</div>
-
-  <div class="nav-right" id="navRight">
+  <div class="logo center">CHOICE CREW</div>
+  <div class="nav-right">
     <a href="login.html">로그인</a>
     <a href="signup.html">회원가입</a>
   </div>
 </div>
 
-<!-- 슬라이드 메뉴 -->
 <div class="side-menu" id="sideMenu">
   <a href="index.html">🏠 홈</a>
   <a href="ranking.html">🏆 포인트 순위</a>
   <a href="admin.html">🛠 관리자</a>
 </div>
 
-<!-- 메인 -->
 <div class="home">
-  <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png">
   <h1>안녕하세요 👋</h1>
   <p>CHOICE 크루에 오신 것을 환영합니다</p>
 </div>
 
 <script>
-const menuBtn = document.getElementById("menuBtn");
-const sideMenu = document.getElementById("sideMenu");
-
-menuBtn.onclick = () => {
-  sideMenu.classList.toggle("open");
+document.getElementById("menuBtn").onclick = () => {
+  document.getElementById("sideMenu").classList.toggle("open");
 };
 </script>
 
