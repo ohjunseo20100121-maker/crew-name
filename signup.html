@@ -1,119 +1,24 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>회원가입</title>
-
-  <!-- ❗ 일단 화면 안 나오는 문제 방지용 -->
-  <!-- 나중에 디자인할 때 다시 써도 됨 -->
-  <!-- <link rel="stylesheet" href="style.css"> -->
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="navbar">
-  <div class="logo">CREW POINT</div>
 
-  <div class="nav-right" id="navRight">
-    <!-- JS가 여기를 바꿔줌 -->
-  </div>
-</div>
-
-  <div class="auth-box">
+<div class="auth-box">
   <h2>회원가입</h2>
-
-  <input id="email" type="email" placeholder="이메일">
-  <input id="pw" type="password" placeholder="비밀번호 (6자 이상)">
-  <input id="name" type="text" placeholder="닉네임">
-
-  <button id="btn">회원가입</button>
-
-  <p class="auth-link">
-    이미 계정이 있나요?
-    <a href="login.html">로그인</a>
-  </p>
-</div>
-
-<div class="navbar">
-  <div class="logo">CREW POINT</div>
-  <div class="nav-right">
-    <a href="index.html">랭킹</a>
-    <a href="login.html">로그인</a>
-    <a href="signup.html">회원가입</a>
-  </div>
-</div>
-
-<div class="container">
-  <h2>회원가입</h2>
-
-  <input id="email" type="email" placeholder="이메일"><br><br>
-  <input id="pw" type="password" placeholder="비밀번호 (6자 이상)"><br><br>
-  <input id="name" type="text" placeholder="닉네임"><br><br>
-
+  <input id="email" placeholder="이메일">
+  <input id="pw" type="password" placeholder="비밀번호">
+  <input id="name" placeholder="닉네임">
   <button id="btn">회원가입</button>
 </div>
 
-<!-- 🔽 반드시 body 맨 아래 -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword }
-    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc, serverTimestamp }
-    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  // ✅ Firebase 설정
-  const firebaseConfig = {
-    apiKey: "AIzaSyDn_NwSI3bQw-qSf__CmXugu7gjRKrlAvc",
-    authDomain: "crew-point.firebaseapp.com",
-    projectId: "crew-point",
-    appId: "1:961636624576:web:f56d961665ed394e39a525"
-  };
-
-  // ✅ 초기화
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  // ✅ 버튼 클릭
-  document.getElementById("btn").addEventListener("click", async () => {
-    const email = document.getElementById("email").value.trim();
-    const pw = document.getElementById("pw").value;
-    const name = document.getElementById("name").value.trim();
-
-    // ✅ 기본 검증
-    if (!email || !pw || !name) {
-      alert("모든 칸을 입력하세요");
-      return;
-    }
-
-    if (pw.length < 6) {
-      alert("비밀번호는 6자 이상이어야 합니다");
-      return;
-    }
-
-    try {
-      // 1️⃣ Authentication 계정 생성
-      const res = await createUserWithEmailAndPassword(auth, email, pw);
-
-      // 2️⃣ Firestore에 유저 정보 저장
-      await setDoc(doc(db, "users", res.user.uid), {
-        email: email,
-        name: name,
-        role: "user",          // 기본 권한
-        createdAt: serverTimestamp()
-      });
-
-      alert("회원가입 성공!");
-      location.href = "login.html";
-
-    } catch (err) {
-      alert(err.message);
-    }
-  });
-</script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from
-  "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "네꺼",
@@ -123,39 +28,31 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
-const nav = document.getElementById("navRight");
-const isLogin = localStorage.getItem("login");
-const uid = localStorage.getItem("uid");
+document.getElementById("btn").onclick = async () => {
+  const email = document.getElementById("email").value;
+  const pw = document.getElementById("pw").value;
+  const name = document.getElementById("name").value;
 
-if (isLogin && uid) {
-  // 로그인 상태
-  const snap = await getDoc(doc(db, "users", uid));
-  const name = snap.data().name;
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, pw);
 
-  nav.innerHTML = `
-    <span class="nav-name">${name}님</span>
-    <button class="logout-btn" id="logout">로그아웃</button>
-  `;
+    await setDoc(doc(db, "users", res.user.uid), {
+      email,
+      name,
+      role: "user",
+      createdAt: serverTimestamp()
+    });
 
-  document.getElementById("logout").onclick = () => {
-    localStorage.clear();
+    alert("회원가입 성공");
     location.href = "login.html";
-  };
-
-} else {
-  // 로그아웃 상태
-  nav.innerHTML = `
-    <a href="login.html">로그인</a>
-    <a href="signup.html">회원가입</a>
-  `;
-}
+  } catch (e) {
+    alert(e.message);
+  }
+};
 </script>
 
 </body>
 </html>
-
-
-
-
