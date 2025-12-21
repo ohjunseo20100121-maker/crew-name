@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>포인트 순위</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<!-- 상단바 -->
+<div class="navbar">
+  <button class="menu-btn" id="menuBtn">☰</button>
+  <div class="logo">CHOICE CREW</div>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<!-- 사이드 메뉴 -->
+<div class="side-menu" id="sideMenu">
+  <a href="index.html">🏠 홈</a>
+  <a href="rank.html">🏆 포인트 순위</a>
+  <a href="admin.html">⚙ 관리자</a>
+</div>
+
+<!-- 랭킹 -->
+<div class="home">
+  <h2>🏆 크루 포인트 순위</h2>
+  <ul id="rankList"></ul>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, getDocs, query, orderBy } 
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "네꺼",
+  authDomain: "네꺼",
+  projectId: "네꺼",
+  appId: "네꺼"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* 메뉴 버튼 */
+menuBtn.onclick = () => {
+  sideMenu.classList.toggle("active");
+};
+
+/* 랭킹 불러오기 */
+const q = query(collection(db, "users"), orderBy("point", "desc"));
+const snap = await getDocs(q);
+
+const list = document.getElementById("rankList");
+list.innerHTML = "";
+
+let rank = 1;
+snap.forEach(doc => {
+  const d = doc.data();
+  const li = document.createElement("li");
+  li.innerHTML = `#${rank} ${d.name} — ${d.point ?? 0}점`;
+  list.appendChild(li);
+  rank++;
+});
+</script>
+
+</body>
+</html>
