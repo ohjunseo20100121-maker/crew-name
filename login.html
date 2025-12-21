@@ -1,13 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 상단바 -->
+<div class="navbar">
+  <div class="nav-left">
+    <button class="menu-btn">☰</button>
+  </div>
+  <div class="nav-center">CHOICE CREW</div>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<!-- 로그인 박스 -->
+<div class="auth-box">
+  <h2>로그인</h2>
+  <input id="email" placeholder="이메일">
+  <input id="pw" type="password" placeholder="비밀번호">
+  <button id="loginBtn">로그인</button>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "네꺼",
-  authDomain: "네꺼",
-  projectId: "네꺼",
-  appId: "네꺼"
+  apiKey: "네 API KEY",
+  authDomain: "네 authDomain",
+  projectId: "네 projectId",
+  appId: "네 appId"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -26,4 +52,24 @@ document.getElementById("loginBtn").onclick = async () => {
     alert("로그인 실패");
   }
 };
+
+const nav = document.getElementById("navRight");
+const uid = localStorage.getItem("uid");
+
+if (uid) {
+  const snap = await getDoc(doc(db, "users", uid));
+  nav.innerHTML = `<button class="logout-btn" id="logout">로그아웃</button>`;
+  document.getElementById("logout").onclick = () => {
+    localStorage.clear();
+    location.reload();
+  };
+} else {
+  nav.innerHTML = `
+    <a href="login.html">로그인</a>
+    <a href="signup.html">회원가입</a>
+  `;
+}
 </script>
+
+</body>
+</html>
