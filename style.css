@@ -18,21 +18,31 @@ body {
 .logo {
   font-size: 20px;
   font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
 }
 
 .nav-right a {
-  color: white;
+  color: #e5e7eb;
   text-decoration: none;
   margin-left: 20px;
   font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
 }
 
 .nav-right a:hover {
-  color: #60a5fa;
+  background: #1f2937;
+  color: #93c5fd;
 }
 
 .nav-name {
   margin-right: 15px;
+  font-size: 14px;
 }
 
 .logout-btn {
@@ -44,13 +54,17 @@ body {
   cursor: pointer;
 }
 
-/* ===== 로그인 / 회원가입 ===== */
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+/* ===== 로그인 / 회원가입 박스 ===== */
 .auth-box {
   width: 360px;
-  margin: 100px auto;
+  margin: 90px auto;
   padding: 30px;
   background: white;
-  border-radius: 12px;
+  border-radius: 14px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   text-align: center;
 }
@@ -65,6 +79,7 @@ body {
   margin-bottom: 12px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  font-size: 14px;
 }
 
 .auth-box button {
@@ -74,6 +89,7 @@ body {
   color: white;
   border: none;
   border-radius: 8px;
+  font-size: 15px;
   cursor: pointer;
 }
 
