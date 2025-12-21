@@ -7,11 +7,13 @@
 </head>
 <body>
 
+<!-- ===== 상단바 (항상 표시) ===== -->
 <div class="navbar">
-  <div class="logo">Crew Point</div>
+  <div class="logo">CHOICE CREW</div>
   <div class="nav-right" id="navRight"></div>
 </div>
 
+<!-- ===== 로그인 박스 ===== -->
 <div class="auth-box">
   <h2>로그인</h2>
   <input id="email" placeholder="이메일">
@@ -35,7 +37,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* ===== 로그인 ===== */
+/* ===== 로그인 처리 ===== */
 document.getElementById("loginBtn").onclick = async () => {
   const email = document.getElementById("email").value;
   const pw = document.getElementById("pw").value;
@@ -49,23 +51,27 @@ document.getElementById("loginBtn").onclick = async () => {
   }
 };
 
-/* ===== 상단바 처리 ===== */
+/* ===== 상단바 상태 처리 ===== */
 const nav = document.getElementById("navRight");
 const uid = localStorage.getItem("uid");
 
 if (uid) {
-  const snap = await getDoc(doc(db, "users", uid));
-  const name = snap.data().name;
+  try {
+    const snap = await getDoc(doc(db, "users", uid));
+    const name = snap.data().name;
 
-  nav.innerHTML = `
-    <span class="nav-name">${name}님</span>
-    <button class="logout-btn" id="logout">로그아웃</button>
-  `;
+    nav.innerHTML = `
+      <span class="nav-name">${name}님</span>
+      <button class="logout-btn" id="logout">로그아웃</button>
+    `;
 
-  document.getElementById("logout").onclick = () => {
+    document.getElementById("logout").onclick = () => {
+      localStorage.clear();
+      location.reload();
+    };
+  } catch {
     localStorage.clear();
-    location.reload();
-  };
+  }
 } else {
   nav.innerHTML = `
     <a href="login.html">로그인</a>
