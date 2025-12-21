@@ -33,5 +33,33 @@ btn.onclick = async () => {
 };
 </script>
   </div>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "네꺼",
+  authDomain: "네꺼",
+  projectId: "네꺼",
+  appId: "네꺼"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.login = function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      localStorage.setItem("userRole", "user");
+      location.href = "index.html";
+    })
+    .catch(err => alert("로그인 실패"));
+};
+</script>
+
 </body>
 </html>
+
