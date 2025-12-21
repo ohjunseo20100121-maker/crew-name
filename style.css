@@ -126,5 +126,48 @@ li {
   padding: 8px;
   border-bottom: 1px solid #eee;
 }
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from
+  "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "네꺼",
+  authDomain: "네꺼",
+  projectId: "네꺼",
+  appId: "네꺼"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const nav = document.getElementById("navRight");
+const isLogin = localStorage.getItem("login");
+const uid = localStorage.getItem("uid");
+
+if (isLogin && uid) {
+  // 로그인 상태
+  const snap = await getDoc(doc(db, "users", uid));
+  const name = snap.data().name;
+
+  nav.innerHTML = `
+    <span class="nav-name">${name}님</span>
+    <button class="logout-btn" id="logout">로그아웃</button>
+  `;
+
+  document.getElementById("logout").onclick = () => {
+    localStorage.clear();
+    location.href = "login.html";
+  };
+
+} else {
+  // 로그아웃 상태
+  nav.innerHTML = `
+    <a href="login.html">로그인</a>
+    <a href="signup.html">회원가입</a>
+  `;
+}
+</script>
+
 
 
