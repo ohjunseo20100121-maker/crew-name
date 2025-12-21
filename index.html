@@ -1,151 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-    <div class="navbar">
-  <div class="logo">CREW POINT</div>
-
-  <div class="nav-right" id="navRight">
-    <!-- JS가 여기를 바꿔줌 -->
-  </div>
-</div>
-
-<div class="navbar">
-  <div class="logo">CREW POINT</div>
-  <div class="nav-right">
-    <a href="index.html">랭킹</a>
-    <a href="login.html">로그인</a>
-    <a href="signup.html">회원가입</a>
-  </div>
-</div>
-
-  .top-bar {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    padding: 15px 20px;
-    background: #111;
-  }
-
-  .btn {
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: bold;
-    transition: 0.2s;
-  }
-
-  .login {
-    color: #fff;
-    border: 1px solid #555;
-  }
-
-  .login:hover {
-    background: #333;
-  }
-
-  .signup {
-    background: #4f46e5;
-    color: white;
-  }
-
-  .signup:hover {
-    background: #3730a3;
-  }
-</style>
-
+  <meta charset="UTF-8">
+  <title>CHOICE CREW</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<div class="top-bar">
-  <a href="login.html" class="btn login">로그인</a>
-  <a href="signup.html" class="btn signup">회원가입</a>
-</div>
 <body>
-  <div class="container">
-  <meta charset="utf-8">
-  <title>포인트 순위표</title>
-</head>
-<body>
-  <h2>크루 포인트 순위</h2>
-  <ul>
-    <li>아직 데이터 없음</li>
-  </ul>
-  </div>
-  <script>
-const user = localStorage.getItem("userRole");
 
-if (!user) {
-  document.querySelectorAll(".guest-only").forEach(e => e.style.display = "inline-block");
-} else {
-  document.querySelectorAll(".user-only").forEach(e => e.style.display = "inline-block");
-}
+<!-- 상단바 -->
+<div class="navbar">
+  <div class="logo">CHOICE CREW</div>
 
-if (user === "admin" || user === "superadmin") {
-  document.querySelectorAll(".admin-only").forEach(e => e.style.display = "inline-block");
-}
+  <div class="menu-btn" id="menuBtn">☰</div>
 
-function logout() {
-  localStorage.removeItem("userRole");
-  location.href = "index.html";
-}
-</script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from
-  "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "네꺼",
-  authDomain: "네꺼",
-  projectId: "네꺼",
-  appId: "네꺼"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const nav = document.getElementById("navRight");
-const isLogin = localStorage.getItem("login");
-const uid = localStorage.getItem("uid");
-
-if (isLogin && uid) {
-  // 로그인 상태
-  const snap = await getDoc(doc(db, "users", uid));
-  const name = snap.data().name;
-
-  nav.innerHTML = `
-    <span class="nav-name">${name}님</span>
-    <button class="logout-btn" id="logout">로그아웃</button>
-  `;
-
-  document.getElementById("logout").onclick = () => {
-    localStorage.clear();
-    location.href = "login.html";
-  };
-
-} else {
-  // 로그아웃 상태
-  nav.innerHTML = `
+  <div class="nav-right" id="navRight">
     <a href="login.html">로그인</a>
     <a href="signup.html">회원가입</a>
-  `;
-}
+  </div>
+</div>
+
+<!-- 슬라이드 메뉴 -->
+<div class="side-menu" id="sideMenu">
+  <a href="index.html">🏠 홈</a>
+  <a href="ranking.html">🏆 포인트 순위</a>
+  <a href="admin.html">🛠 관리자</a>
+</div>
+
+<!-- 메인 -->
+<div class="home">
+  <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+  <h1>안녕하세요 👋</h1>
+  <p>CHOICE 크루에 오신 것을 환영합니다</p>
+</div>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const sideMenu = document.getElementById("sideMenu");
+
+menuBtn.onclick = () => {
+  sideMenu.classList.toggle("open");
+};
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
