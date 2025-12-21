@@ -4,6 +4,55 @@ body {
   margin: 0;
   padding: 0;
 }
+/* ===== 회원가입 / 로그인 박스 ===== */
+.auth-box {
+  width: 360px;
+  margin: 80px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.auth-box h2 {
+  margin-bottom: 20px;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.auth-box button:hover {
+  background: #1e40af;
+}
+
+.auth-link {
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.auth-link a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
 /* ===== 상단바 ===== */
 .navbar {
   height: 60px;
@@ -77,4 +126,5 @@ li {
   padding: 8px;
   border-bottom: 1px solid #eee;
 }
+
 
