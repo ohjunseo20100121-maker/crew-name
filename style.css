@@ -447,3 +447,30 @@ body {
 }
 
 
+
+/* ===== POINT LOG ===== */
+
+.log-wrap {
+  max-width: 800px;
+  margin: 80px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.log-wrap h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#logList {
+  list-style: none;
+  padding: 0;
+}
+
+#logList li {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
