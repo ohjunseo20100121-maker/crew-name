@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>포인트 로그</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="navbar">
+  <div class="nav-left">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <div id="authArea"></div>
+  </div>
+  <div class="logo">CHOICE CREW</div>
+</div>
+
+<div class="side-menu" id="sideMenu">
+  <a href="index.html">🏠 홈</a>
+  <a href="rank.html">🏆 포인트 순위</a>
+  <a href="log.html">📊 포인트 로그</a>
+</div>
+
+<div class="log-wrap">
+  <h2>포인트 적립 · 감소 로그</h2>
+  <ul id="logList"></ul>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, query, orderBy, getDocs }
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "네꺼",
+  authDomain: "네꺼",
+  projectId: "네꺼",
+  appId: "네꺼"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const q = query(
+  collection(db, "pointLogs"),
+  orderBy("createdAt", "desc")
+);
+
+const snap = await getDocs(q);
+const list = document.getElementById("logList");
+
+snap.forEach(doc => {
+  const d = doc.data();
+  const li = document.createElement("li");
+  li.textContent = `${d.name} | ${d.change > 0 ? "+" : ""}${d.change}점 | ${d.reason}`;
+  list.appendChild(li);
+});
+
+/* 메뉴 */
+menuBtn.onclick = () => {
+  sideMenu.classList.toggle("active");
+};
+</script>
+
+</body>
+</html>
 
