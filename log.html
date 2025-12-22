@@ -39,37 +39,12 @@ const firebaseConfig = {
   appId: "네꺼"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const q = query(
-  collection(db, "pointLogs"),
-  orderBy("createdAt", "desc")
-);
-
-const snap = await getDocs(q);
-const list = document.getElementById("logList");
-
-snap.forEach(doc => {
-  const d = doc.data();
-  const li = document.createElement("li");
-  li.textContent = `${d.name} | ${d.change > 0 ? "+" : ""}${d.change}점 | ${d.reason}`;
-  list.appendChild(li);
-});
-
-/* 메뉴 */
-menuBtn.onclick = () => {
-  sideMenu.classList.toggle("active");
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const authArea = document.getElementById("authArea");
 const uid = localStorage.getItem("uid");
 
 if (!uid) {
-  // 로그인 안 됨
   authArea.innerHTML = `
     <a href="login.html">로그인</a>
     <a href="signup.html">회원가입</a>
@@ -90,10 +65,6 @@ if (!uid) {
   }
 }
 
-/* 메뉴 버튼 */
-menuBtn.onclick = () => {
-  document.getElementById("sideMenu").classList.toggle("active");
-};
 </script>
 
 </body>
