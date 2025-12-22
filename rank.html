@@ -32,8 +32,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs, query, orderBy } 
-  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "네꺼",
@@ -45,27 +44,37 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const authArea = document.getElementById("authArea");
+const uid = localStorage.getItem("uid");
+
+if (!uid) {
+  // 로그인 안 됨
+  authArea.innerHTML = `
+    <a href="login.html">로그인</a>
+    <a href="signup.html">회원가입</a>
+  `;
+} else {
+  const snap = await getDoc(doc(db, "users", uid));
+  if (snap.exists()) {
+    const name = snap.data().name;
+    authArea.innerHTML = `
+      <span>${name}님</span>
+      <button id="logoutBtn">로그아웃</button>
+    `;
+
+    document.getElementById("logoutBtn").onclick = () => {
+      localStorage.clear();
+      location.href = "login.html";
+    };
+  }
+}
+
 /* 메뉴 버튼 */
 menuBtn.onclick = () => {
-  sideMenu.classList.toggle("active");
+  document.getElementById("sideMenu").classList.toggle("active");
 };
-
-/* 랭킹 불러오기 */
-const q = query(collection(db, "users"), orderBy("point", "desc"));
-const snap = await getDocs(q);
-
-const list = document.getElementById("rankList");
-list.innerHTML = "";
-
-let rank = 1;
-snap.forEach(doc => {
-  const d = doc.data();
-  const li = document.createElement("li");
-  li.innerHTML = `#${rank} ${d.name} — ${d.point ?? 0}점`;
-  list.appendChild(li);
-  rank++;
-});
 </script>
+
 
 </body>
 </html>
