@@ -26,14 +26,6 @@
   <h2>CHOICE 크루에 오신 것을 환영합니다</h2>
 </div>
 
-<script>
-menuBtn.onclick = () => sideMenu.classList.toggle("active");
-
-logoutBtn.onclick = () => {
-  localStorage.clear();
-  location.href = "login.html";
-};
-</script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -81,5 +73,6 @@ menuBtn.onclick = () => {
 
 </body>
 </html>
+
 
 
