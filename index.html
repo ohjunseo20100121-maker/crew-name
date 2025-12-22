@@ -22,42 +22,29 @@
 </div>
 <!-- ===== HOME CONTENT ===== -->
 <div class="home-wrap">
+  <div class="hero">
+    <h1>CHOICE CREW</h1>
+    <p>크루 포인트 · 관리 · 기록을 한 곳에서</p>
+  </div>
 
-  <section class="hero">
-    <div class="hero-text">
-      <h1>
-        Welcome to<br>
-        <span>CHOICE CREW</span>
-      </h1>
-      <p>
-        함께 성장하고, 함께 기록하는<br>
-        미래형 크루 포인트 플랫폼
-      </p>
+  <div class="card-grid">
+    <div class="home-card" onclick="location.href='rank.html'">
+      <h3>🏆 포인트 랭킹</h3>
+      <p>크루원 포인트 순위 확인</p>
     </div>
 
-    <div class="hero-visual">
-      <div class="orb orb1"></div>
-      <div class="orb orb2"></div>
-      <div class="orb orb3"></div>
-    </div>
-  </section>
-
-  <section class="info-cards">
-    <div class="info-card">
-      <h3>CREW SYSTEM</h3>
-      <p>활동 기반 포인트 누적 시스템</p>
+    <div class="home-card" onclick="location.href='rank.html#log'">
+      <h3>📊 포인트 적립 · 감소 로그</h3>
+      <p>포인트 변경 내역 기록</p>
     </div>
 
-    <div class="info-card">
-      <h3>RANKING</h3>
-      <p>실시간 크루 포인트 순위</p>
+    <div class="home-card" onclick="location.href='admin.html'">
+      <h3>⚙ 관리자 메뉴</h3>
+      <p>관리자 전용 포인트 관리</p>
     </div>
+  </div>
+</div>
 
-    <div class="info-card">
-      <h3>ADMIN CONTROL</h3>
-      <p>권한 기반 관리자 관리</p>
-    </div>
-  </section>
 
 </div>
 
@@ -108,6 +95,7 @@ menuBtn.onclick = () => {
 
 </body>
 </html>
+
 
 
 
