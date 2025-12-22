@@ -43,7 +43,16 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  query,
+  orderBy,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 
 const firebaseConfig = {
   apiKey: "네꺼",
@@ -84,6 +93,38 @@ if (!uid) {
 menuBtn.onclick = () => {
   document.getElementById("sideMenu").classList.toggle("active");
 };
+
+// ===== 랭킹 불러오기 =====
+const rankList = document.getElementById("rankList");
+
+const q = query(
+  collection(db, "users"),
+  orderBy("point", "desc")
+);
+
+const snapRank = await getDocs(q);
+
+let rank = 1;
+
+snapRank.forEach(docu => {
+  const d = docu.data();
+
+  let medal = "";
+  if (rank === 1) medal = "👑";
+  if (rank === 2) medal = "🥈";
+  if (rank === 3) medal = "🥉";
+
+  rankList.innerHTML += `
+    <tr class="rank-${rank <= 3 ? "top" : "normal"}">
+      <td>${rank} ${medal}</td>
+      <td>${d.name}</td>
+      <td>${d.point || 0} P</td>
+    </tr>
+  `;
+
+  rank++;
+});
+
 </script>
 
 
