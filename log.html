@@ -61,6 +61,33 @@ snap.forEach(doc => {
 menuBtn.onclick = () => {
   sideMenu.classList.toggle("active");
 };
+
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const authArea = document.getElementById("authArea");
+const uid = localStorage.getItem("uid");
+
+if (!uid) {
+  authArea.innerHTML = `
+    <a href="login.html">로그인</a>
+    <a href="signup.html">회원가입</a>
+  `;
+} else {
+  const snap = await getDoc(doc(db, "users", uid));
+  if (snap.exists()) {
+    const name = snap.data().name;
+    authArea.innerHTML = `
+      <span>${name}님</span>
+      <button id="logoutBtn">로그아웃</button>
+    `;
+
+    document.getElementById("logoutBtn").onclick = () => {
+      localStorage.clear();
+      location.href = "login.html";
+    };
+  }
+}
+
 </script>
 
 </body>
