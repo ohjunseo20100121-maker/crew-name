@@ -50,6 +50,8 @@ if (!uid) {
     <a href="signup.html">회원가입</a>
   `;
 } else {
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
   const snap = await getDoc(doc(db, "users", uid));
   if (snap.exists()) {
     const name = snap.data().name;
