@@ -28,6 +28,7 @@
 <!-- 랭킹 -->
 <div class="page-wrap">
   <div class="page-title">🏆 포인트 랭킹</div>
+<div class="podium" id="podium"></div>
 
   <table class="rank-table">
     <thead>
@@ -95,6 +96,7 @@ menuBtn.onclick = () => {
 };
 
 // ===== 랭킹 불러오기 =====
+const podium = document.getElementById("podium");
 const rankList = document.getElementById("rankList");
 
 const q = query(
@@ -108,19 +110,33 @@ let rank = 1;
 
 snapRank.forEach(docu => {
   const d = docu.data();
+  const point = d.point || 0;
 
-  let medal = "";
-  if (rank === 1) medal = "👑";
-  if (rank === 2) medal = "🥈";
-  if (rank === 3) medal = "🥉";
+  // 🏆 TOP 3 → 시상대
+  if (rank <= 3) {
+    const medal =
+      rank === 1 ? "👑" :
+      rank === 2 ? "🥈" : "🥉";
 
-  rankList.innerHTML += `
-    <tr class="rank-${rank <= 3 ? "top" : "normal"}">
-      <td>${rank} ${medal}</td>
-      <td>${d.name}</td>
-      <td>${d.point || 0} P</td>
-    </tr>
-  `;
+    podium.innerHTML += `
+      <div class="podium-card rank-${rank}">
+        <div class="medal">${medal}</div>
+        <div class="name">${d.name}</div>
+        <div class="point">${point} P</div>
+        <div class="rank">${rank}위</div>
+      </div>
+    `;
+  }
+  // 📋 4등부터 → 테이블
+  else {
+    rankList.innerHTML += `
+      <tr>
+        <td>${rank}</td>
+        <td>${d.name}</td>
+        <td>${point} P</td>
+      </tr>
+    `;
+  }
 
   rank++;
 });
