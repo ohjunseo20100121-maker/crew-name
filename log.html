@@ -65,6 +65,13 @@ if (!uid) {
   }
 }
 
+const menuBtn = document.getElementById("menuBtn");
+const sideMenu = document.getElementById("sideMenu");
+
+menuBtn.onclick = () => {
+  sideMenu.classList.toggle("active");
+};
+
 </script>
 
 </body>
