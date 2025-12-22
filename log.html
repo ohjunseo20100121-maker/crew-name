@@ -62,12 +62,14 @@ menuBtn.onclick = () => {
   sideMenu.classList.toggle("active");
 };
 
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const authArea = document.getElementById("authArea");
 const uid = localStorage.getItem("uid");
 
 if (!uid) {
+  // 로그인 안 됨
   authArea.innerHTML = `
     <a href="login.html">로그인</a>
     <a href="signup.html">회원가입</a>
@@ -88,6 +90,10 @@ if (!uid) {
   }
 }
 
+/* 메뉴 버튼 */
+menuBtn.onclick = () => {
+  document.getElementById("sideMenu").classList.toggle("active");
+};
 </script>
 
 </body>
