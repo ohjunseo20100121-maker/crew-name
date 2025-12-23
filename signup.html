@@ -32,7 +32,8 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDn_NwSI3bQw-qSf__CmXugu7gjRKrlAvc",
@@ -42,13 +43,14 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
+/* 상단바 로그인 상태 */
 const authArea = document.getElementById("authArea");
 const uid = localStorage.getItem("uid");
 
 if (!uid) {
-  // 로그인 안 됨
   authArea.innerHTML = `
     <a href="login.html">로그인</a>
     <a href="signup.html">회원가입</a>
@@ -56,12 +58,10 @@ if (!uid) {
 } else {
   const snap = await getDoc(doc(db, "users", uid));
   if (snap.exists()) {
-    const name = snap.data().name;
     authArea.innerHTML = `
-      <span>${name}님</span>
+      <span>${snap.data().name}님</span>
       <button id="logoutBtn">로그아웃</button>
     `;
-
     document.getElementById("logoutBtn").onclick = () => {
       localStorage.clear();
       location.href = "login.html";
@@ -69,14 +69,45 @@ if (!uid) {
   }
 }
 
+/* 회원가입 */
+document.getElementById("signupBtn").onclick = async () => {
+  const email = document.getElementById("email").value;
+  const pw = document.getElementById("pw").value;
+  const name = document.getElementById("name").value;
+
+  if (!email || !pw || !name) {
+    alert("모든 항목을 입력하세요");
+    return;
+  }
+
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, pw);
+
+    await setDoc(doc(db, "users", res.user.uid), {
+      email,
+      name,
+      role: "user",
+      createdAt: serverTimestamp()
+    });
+
+    alert("회원가입 성공");
+    location.href = "login.html";
+  } catch (e) {
+    alert(e.message);
+  }
+};
+
 /* 메뉴 버튼 */
+const menuBtn = document.getElementById("menuBtn");
 menuBtn.onclick = () => {
   document.getElementById("sideMenu").classList.toggle("active");
 };
 </script>
 
+
 </body>
 </html>
+
 
 
 
