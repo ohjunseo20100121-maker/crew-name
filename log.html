@@ -78,6 +78,31 @@ menuBtn.onclick = () => {
   sideMenu.classList.toggle("active");
 };
 
+// 🔽 포인트 로그 불러오기
+const logList = document.getElementById("logList");
+
+const q = query(
+  collection(db, "logs"),
+  orderBy("createdAt", "desc")
+);
+
+const querySnap = await getDocs(q);
+
+logList.innerHTML = "";
+
+querySnap.forEach(docSnap => {
+  const data = docSnap.data();
+
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <strong>${data.name}</strong>
+    <span>${data.type === "plus" ? "＋" : "－"} ${data.point}</span>
+    <small>${data.reason || ""}</small>
+  `;
+
+  logList.appendChild(li);
+});
+
 </script>
 
 </body>
